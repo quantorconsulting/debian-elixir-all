@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+source ./bin/env-vars
+
+bin/render templates/dockerfile-erlang  > erlang/Dockerfile
+bin/render templates/dockerfile-elixir  > elixir/Dockerfile
+bin/render templates/dockerfile-phoenix > phoenix/Dockerfile
+bin/render templates/dockerfile-docker > docker/Dockerfile
+bin/render templates/dockerfile-wkhtmltopdf > wkhtmltopdf/Dockerfile
+
+echo $ELIXIR_VERSION > elixir/VERSION
+echo $ELIXIR_VERSION > phoenix/VERSION
+echo $ELIXIR_VERSION > docker/VERSION
+echo $ELIXIR_VERSION > wkhtmltopdf/VERSION
+echo $ERLANG_VERSION > erlang/VERSION
+
+echo "DOCKERFILES UPDATED!"

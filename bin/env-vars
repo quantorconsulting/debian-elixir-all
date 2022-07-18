@@ -1,0 +1,6 @@
+export REFRESHED_AT="2022-07-17"
+export DOCKERHUB_USER="quantor"
+
+export DEBIAN_VERSION="bullseye-slim"
+export ERLANG_VERSION="24.2.2"
+export ELIXIR_VERSION="1.13.3"

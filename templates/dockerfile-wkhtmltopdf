@@ -1,0 +1,29 @@
+FROM {{DOCKERHUB_USER}}/debian-elixir-phoenix-dind:{{ELIXIR_VERSION}}
+
+# Important!  Update this no-op ENV variable when this Dockerfile
+# is updated with the current date. It will force refresh of all
+# of the base images and things like `apt-get update` won't be using
+# old cached versions when the Dockerfile is built.
+ENV REFRESHED_AT={{REFRESHED_AT}} \
+    DEBIAN_FRONTEND=noninteractive
+
+# Install wkhtml
+RUN \
+    apt update && apt upgrade && \
+    apt install -y \
+      xfonts-base xfonts-75dpi && \
+    wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.bullseye_amd64.deb && \
+    dpkg -i wkhtmltox_0.12.6.1-2.bullseye_amd64.deb && \
+    rm wkhtmltox_0.12.6.1-2.bullseye_amd64.deb && \
+    update-ca-certificates --fresh && \
+    rm -rf /var/lib/apt/lists/*  &&\
+    rm -Rf /usr/share/doc && rm -Rf /usr/share/man && \
+    apt-get clean && \
+    apt-get autoclean
+
+# Ensure latest versions of Hex/Rebar are installed on build
+ONBUILD RUN mix do local.hex --force, local.rebar --force
+
+WORKDIR /opt/app
+
+CMD ["/bin/sh"]
