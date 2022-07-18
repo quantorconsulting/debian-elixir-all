@@ -48,4 +48,7 @@ Github Actions depend on following secrets being available:
 - https://hub.docker.com/repository/docker/quantor/debian-elixir-phoenix-dind
 - https://hub.docker.com/repository/docker/quantor/debian-elixir-phoenix-dind-wkhtmltopdf
 
-Thanks to @mindreframer https://github.com/mindreframer/alpine-elixir-all
+# Thanks
+
+- to @mindreframer https://github.com/mindreframer/alpine-elixir-all
+- and @bitwalker
