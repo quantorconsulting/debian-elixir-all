@@ -4,7 +4,7 @@ FROM debian:bullseye-slim AS build
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2022-07-17 \
+ENV REFRESHED_AT=2022-07-19 \
     LANG=en_US.UTF-8 \
     HOME=/opt/app/ \
     TERM=xterm \

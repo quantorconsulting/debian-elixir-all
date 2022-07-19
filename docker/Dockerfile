@@ -1,10 +1,10 @@
-FROM quantor/debian-elixir-phoenix:1.13.3
+FROM quantor/debian-elixir-phoenix:1.13.3-slim
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2022-07-17 \
+ENV REFRESHED_AT=2022-07-19 \
     DEBIAN_FRONTEND=noninteractive
 
 # Install docker

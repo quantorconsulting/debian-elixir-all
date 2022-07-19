@@ -9,12 +9,12 @@ All relevant information is kept in a single file: `bin/env-vars`.
 Following ENV variables are available:
 
 ```
-export REFRESHED_AT="2021-07-17"
+export REFRESHED_AT="2021-07-19"
 export DOCKERHUB_USER="quantor"
 
 export DEBIAN_VERSION="11"
-export ERLANG_VERSION="24.2.2"
-export ELIXIR_VERSION="1.13.3"
+export ERLANG_VERSION="24.2.2" # unused currently
+export ELIXIR_VERSION="1.13.3-slim" # using official elixir base image
 ```
 
 ```shell

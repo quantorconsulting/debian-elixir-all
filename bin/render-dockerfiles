@@ -14,6 +14,6 @@ echo $ELIXIR_VERSION > phoenix/VERSION
 echo $ELIXIR_VERSION > docker/VERSION
 echo $ELIXIR_VERSION > wkhtmltopdf/VERSION
 echo $ERLANG_VERSION > erlang/VERSION
-echo $DEBIAN_VERSION > runtime-wkhtml/VERSION
+echo $ELIXIR_VERSION > runtime-wkhtml/VERSION
 
 echo "DOCKERFILES UPDATED!"

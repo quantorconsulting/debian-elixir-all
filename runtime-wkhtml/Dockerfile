@@ -1,17 +1,27 @@
-FROM {{DOCKERHUB_USER}}/debian-elixir-phoenix-dind:{{ELIXIR_VERSION}}
+FROM elixir:1.13.3-slim
+#FROM debian:bullseye-slim
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT={{REFRESHED_AT}} \
+ENV REFRESHED_AT=2022-07-19 \
     DEBIAN_FRONTEND=noninteractive
 
 # Install wkhtml
 RUN \
-    apt update && apt upgrade && \
+    apt update && \
     apt install -y \
-      xfonts-base xfonts-75dpi fontconfig libjpeg62-turbo libx11-6 libxcb1 libxext6 libxrender1 && \
+      xfonts-base xfonts-75dpi fontconfig libjpeg62-turbo libx11-6 libxcb1 libxext6 libxrender1 \
+      openssl \
+      libncursesw6 \
+      libstdc++6 \
+      libgcc-s1 \
+      zlib1g \
+      wget \
+      bash \
+      musl-dev && \
+    ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1 && \
     wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.bullseye_amd64.deb && \
     dpkg -i wkhtmltox_0.12.6.1-2.bullseye_amd64.deb && \
     rm wkhtmltox_0.12.6.1-2.bullseye_amd64.deb && \
@@ -21,9 +31,8 @@ RUN \
     apt-get clean && \
     apt-get autoclean
 
-# Ensure latest versions of Hex/Rebar are installed on build
-ONBUILD RUN mix do local.hex --force, local.rebar --force
 
-WORKDIR /opt/app
+
+WORKDIR /app
 
 CMD ["/bin/sh"]

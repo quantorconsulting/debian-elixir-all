@@ -1,27 +1,27 @@
-FROM quantor/debian-elixir:1.13.3
+FROM elixir:1.13.3-slim
+#FROM quantor/debian-elixir:1.13.3-slim
 
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2022-07-17 \
+ENV REFRESHED_AT=2022-07-19 \
     DEBIAN_FRONTEND=noninteractive
 
 # Install NPM
 RUN \
     mkdir -p /opt/app && \
     chmod -R 777 /opt/app && \
-    apt update && apt upgrade && \
-    apt install -y \
-      make \
-      libstdc++6 \
-      g++ \
+    apt update && apt upgrade -y && \
+    apt install --no-install-recommends -y \
+      build-essential \
       wget \
-      curl \
       inotify-tools \
       nodejs \
-      npm && \
+      npm \
+      musl-dev && \
+    ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1 && \
     npm install npm -g --no-progress && \
     npm cache clean --force && \
     update-ca-certificates --fresh && \

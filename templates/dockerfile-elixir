@@ -1,4 +1,4 @@
-FROM {{DOCKERHUB_USER}}/debian-erlang:{{ERLANG_VERSION}}
+#FROM {{DOCKERHUB_USER}}/debian-erlang:{{ERLANG_VERSION}}
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all

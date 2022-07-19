@@ -1,6 +1,5 @@
 FROM elixir:{{ELIXIR_VERSION}}
-#FROM {{DOCKERHUB_USER}}/debian-elixir:{{ELIXIR_VERSION}}
-
+#FROM debian:{{DEBIAN_VERSION}}
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
@@ -9,33 +8,31 @@ FROM elixir:{{ELIXIR_VERSION}}
 ENV REFRESHED_AT={{REFRESHED_AT}} \
     DEBIAN_FRONTEND=noninteractive
 
-# Install NPM
+# Install wkhtml
 RUN \
-    mkdir -p /opt/app && \
-    chmod -R 777 /opt/app && \
-    apt update && apt upgrade -y && \
-    apt install --no-install-recommends -y \
-      build-essential \
+    apt update && \
+    apt install -y \
+      xfonts-base xfonts-75dpi fontconfig libjpeg62-turbo libx11-6 libxcb1 libxext6 libxrender1 \
+      openssl \
+      libncursesw6 \
+      libstdc++6 \
+      libgcc-s1 \
+      zlib1g \
       wget \
-      inotify-tools \
-      nodejs \
-      npm \
+      bash \
       musl-dev && \
     ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1 && \
-    npm install npm -g --no-progress && \
-    npm cache clean --force && \
+    wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.bullseye_amd64.deb && \
+    dpkg -i wkhtmltox_0.12.6.1-2.bullseye_amd64.deb && \
+    rm wkhtmltox_0.12.6.1-2.bullseye_amd64.deb && \
     update-ca-certificates --fresh && \
     rm -rf /var/lib/apt/lists/*  &&\
     rm -Rf /usr/share/doc && rm -Rf /usr/share/man && \
     apt-get clean && \
     apt-get autoclean
 
-# Add local node module binaries to PATH
-ENV PATH=./node_modules/.bin:$PATH
 
-# Ensure latest versions of Hex/Rebar are installed on build
-ONBUILD RUN mix do local.hex --force, local.rebar --force
 
-WORKDIR /opt/app
+WORKDIR /app
 
 CMD ["/bin/sh"]
