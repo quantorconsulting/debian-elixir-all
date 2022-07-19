@@ -7,11 +7,13 @@ bin/render templates/dockerfile-elixir  > elixir/Dockerfile
 bin/render templates/dockerfile-phoenix > phoenix/Dockerfile
 bin/render templates/dockerfile-docker > docker/Dockerfile
 bin/render templates/dockerfile-wkhtmltopdf > wkhtmltopdf/Dockerfile
+bin/render templates/dockerfile-runtime-wkhtml > runtime-wkhtml/Dockerfile
 
 echo $ELIXIR_VERSION > elixir/VERSION
 echo $ELIXIR_VERSION > phoenix/VERSION
 echo $ELIXIR_VERSION > docker/VERSION
 echo $ELIXIR_VERSION > wkhtmltopdf/VERSION
 echo $ERLANG_VERSION > erlang/VERSION
+echo $DEBIAN_VERSION > runtime-wkhtml/VERSION
 
 echo "DOCKERFILES UPDATED!"
